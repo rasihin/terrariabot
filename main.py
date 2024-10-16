@@ -20,9 +20,14 @@ async def fetch_mod(update: Update, context):
     mod_url = update.message.text  # Получаем ссылку, которую прислал пользователь
     api_url = 'https://api.steamworkshopdownloader.ru/steam.request'
 
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+        'Content-Type': 'application/json'
+    }
+
     try:
-        # Отправляем запрос на API для получения данных о моде
-        response = requests.post(api_url, json={'url': mod_url})
+        # Отправляем запрос на API для получения данных о моде с заголовками
+        response = requests.post(api_url, json={'url': mod_url}, headers=headers)
         response.raise_for_status()
         data = response.json()
 
